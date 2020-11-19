@@ -1,5 +1,7 @@
 package page;
 
+import java.io.IOException;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -47,6 +49,9 @@ public class BebidasPage extends BasePage {
 		Thread.sleep(2000);
 		driver.findElement(By.xpath(CARRINHO)).click();
 		Thread.sleep(2000);
+	}
+	
+	public void carrinho() throws InterruptedException, IOException {
 		driver.findElement(By.xpath(AUMENTAR)).click();
 		Thread.sleep(2000);
 		driver.findElement(By.xpath(AUMENTAR)).click();
@@ -72,6 +77,7 @@ public class BebidasPage extends BasePage {
 		driver.findElement(By.xpath(DIMINUIR)).click();
 		Thread.sleep(2000);
 		driver.findElement(By.xpath(FINALIZAR)).click();
+		takeScreenShot("bebidas_e_rissole"); //os arquivos do print vão para a pasta "output
 		driver.findElement(By.xpath(FECHAR)).click();
 	}
 }

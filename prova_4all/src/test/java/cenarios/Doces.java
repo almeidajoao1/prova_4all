@@ -1,5 +1,7 @@
 package cenarios;
 
+import java.io.IOException;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,6 +12,10 @@ import page.DocesPage;
 
 public class Doces {
 
+	/**
+	 * Este método visa confrigurar o drive. Esta classe será possível ser excutada
+	 * em ambiente windows e linux.
+	 */
 	public void verificaSistemaOperacionalESetaChromeDriver() {
 		System.out.println(System.getProperty("os.name"));
 		if (System.getProperty("os.name").toLowerCase().contains("windows")) {
@@ -30,8 +36,9 @@ public class Doces {
 	}
 
 	@Test
-	public void selecionarDoces() throws InterruptedException {
+	public void selecionarDoces() throws InterruptedException, IOException {
 		doces.listaDoces();
+		doces.carrinho();
 		Thread.sleep(5000);
 	}
 
