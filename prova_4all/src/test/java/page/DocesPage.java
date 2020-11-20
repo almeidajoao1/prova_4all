@@ -21,6 +21,7 @@ public class DocesPage extends BasePage {
 	final String AUMENTAR = "//*[@id=\"add-product-4-qtd\"]/span";
 	final String FINALIZAR = "//*[@id=\"finish-checkout-button\"]";
 	final String FECHAR = "//*[@id=\"root\"]/div[3]/div/div/div/button";
+	final String ALERTACOMPRA = "//h2[contains(text(),'Pedido realizado com sucesso!')]";
 
 	/**
 	 * Este método seleciona, dentro da lista, o tipo "Doces". Adiciona todos os
@@ -34,26 +35,27 @@ public class DocesPage extends BasePage {
 		driver.findElement(By.xpath(LISTA)).click();
 		driver.findElement(By.xpath(DOCES)).click();
 		driver.findElement(By.xpath(CARRINHO1)).click();
-		Thread.sleep(3000);
 		driver.findElement(By.xpath(CARRINHO2)).click();
-		Thread.sleep(3000);
 		driver.findElement(By.xpath(LISTA)).click();
-		Thread.sleep(3000);
 		driver.findElement(By.xpath(TODOS)).click();
-		Thread.sleep(2000);
 		driver.findElement(By.xpath(CARRINHO)).click();
-		Thread.sleep(2000);
+
 	}
-	
+
 	public void carrinho() throws InterruptedException, IOException {
 		driver.findElement(By.xpath(AUMENTAR)).click();
-		Thread.sleep(2000);
 		driver.findElement(By.xpath(AUMENTAR)).click();
-		Thread.sleep(2000);
 		driver.findElement(By.xpath(AUMENTAR)).click();
-		Thread.sleep(2000);
 		driver.findElement(By.xpath(FINALIZAR)).click();
-		takeScreenShot("doces"); //os arquivos do print vão para a pasta "output
+		takeScreenShot("doces"); // os arquivos do print vão para a pasta "output
 		driver.findElement(By.xpath(FECHAR)).click();
+	}
+
+	public void concluirCompra() {
+		driver.switchTo().activeElement();
+	}
+
+	public String getMensagem() {
+		return driver.findElement(By.xpath(ALERTACOMPRA)).getText();
 	}
 }

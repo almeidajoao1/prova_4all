@@ -1,8 +1,10 @@
 package cenarios;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
@@ -12,9 +14,12 @@ import page.DocesPage;
 
 public class Doces {
 
+	WebDriver driver;
+	DocesPage doces;
+
 	/**
-	 * Este mÈtodo visa confrigurar o drive. Esta classe ser· possÌvel ser excutada
-	 * em ambiente windows e linux.
+	 * Este m√©todo visa confrigurar o drive. Esta classe ser√° poss√≠vel ser excutada
+	 * em ambiente Windows e Linux.
 	 */
 	public void verificaSistemaOperacionalESetaChromeDriver() {
 		System.out.println(System.getProperty("os.name"));
@@ -25,12 +30,16 @@ public class Doces {
 		}
 	}
 
-	WebDriver driver = new ChromeDriver();
-	DocesPage doces;
+	public void setupChrome() {
+		driver = new ChromeDriver();
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		driver.manage().window().maximize();
+	}
 
 	@Before
 	public void abrirJanela() {
-		driver.manage().window().maximize();
+		verificaSistemaOperacionalESetaChromeDriver();
+		setupChrome();
 		doces = new DocesPage(driver);
 		doces.abrirURL("https://shopcart-challenge.4all.com/");
 	}
@@ -39,7 +48,10 @@ public class Doces {
 	public void selecionarDoces() throws InterruptedException, IOException {
 		doces.listaDoces();
 		doces.carrinho();
-		Thread.sleep(5000);
+	}
+
+	public void validarMensagem() {
+		Assert.assertEquals("Pedido realizado com sucesso!", doces.getMensagem());
 	}
 
 	@After

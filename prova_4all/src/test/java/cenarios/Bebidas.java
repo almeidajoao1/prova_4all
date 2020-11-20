@@ -1,8 +1,10 @@
 package cenarios;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
@@ -11,6 +13,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import page.BebidasPage;
 
 public class Bebidas {
+
+	WebDriver driver;
+	BebidasPage bebidas;
 
 	/**
 	 * Este método visa confrigurar o drive. Esta classe será possível ser excutada
@@ -25,12 +30,16 @@ public class Bebidas {
 		}
 	}
 
-	WebDriver driver = new ChromeDriver();
-	BebidasPage bebidas;
+	public void setupChrome() {
+		driver = new ChromeDriver();
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		driver.manage().window().maximize();
+	}
 
 	@Before
 	public void abrirJanela() {
-		driver.manage().window().maximize();
+		verificaSistemaOperacionalESetaChromeDriver();
+		setupChrome();
 		bebidas = new BebidasPage(driver);
 		bebidas.abrirURL("https://shopcart-challenge.4all.com/");
 	}
@@ -39,7 +48,10 @@ public class Bebidas {
 	public void selecionarDoces() throws InterruptedException, IOException {
 		bebidas.listaBebidas();
 		bebidas.carrinho();
-		Thread.sleep(5000);
+	}
+
+	public void validarMensagem() {
+		Assert.assertEquals("Pedido realizado com sucesso!", bebidas.getMensagem());
 	}
 
 	@After
