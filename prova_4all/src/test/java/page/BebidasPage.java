@@ -36,40 +36,70 @@ public class BebidasPage extends BasePage {
 	public void listaBebidas() throws InterruptedException {
 
 		driver.findElement(By.xpath(LISTA)).click();
+		Thread.sleep(1000);
 		driver.findElement(By.xpath(BEBIDAS)).click();
+		Thread.sleep(1000);
 		driver.findElement(By.xpath(CARRINHO1)).click();
+		Thread.sleep(1000);
 		driver.findElement(By.xpath(CARRINHO2)).click();
+		Thread.sleep(1000);
 		driver.findElement(By.xpath(CARRINHO3)).click();
+		Thread.sleep(1000);
 		driver.findElement(By.xpath(LISTA)).click();
+		Thread.sleep(1000);
 		driver.findElement(By.xpath(TODOS)).click();
+		Thread.sleep(1000);
 		driver.findElement(By.xpath(RISSOLE)).click();
+		Thread.sleep(1000);
 		driver.findElement(By.xpath(CARRINHO)).click();
 
 	}
 
 	public void carrinho() throws InterruptedException, IOException {
 		driver.findElement(By.xpath(AUMENTAR)).click();
+		Thread.sleep(1000);
 		driver.findElement(By.xpath(AUMENTAR)).click();
+		Thread.sleep(1000);
 		driver.findElement(By.xpath(AUMENTAR)).click();
+		Thread.sleep(1000);
 		driver.findElement(By.xpath(AUMENTAR)).click();
+		Thread.sleep(1000);
 		driver.findElement(By.xpath(AUMENTAR)).click();
+		Thread.sleep(1000);
 		driver.findElement(By.xpath(AUMENTAR)).click();
+		Thread.sleep(1000);
 		driver.findElement(By.xpath(AUMENTAR)).click();
+		Thread.sleep(1000);
 		driver.findElement(By.xpath(AUMENTAR)).click();
+		Thread.sleep(1000);
 		driver.findElement(By.xpath(DIMINUIR)).click();
+		Thread.sleep(1000);
 		driver.findElement(By.xpath(DIMINUIR)).click();
+		Thread.sleep(1000);
 		driver.findElement(By.xpath(DIMINUIR)).click();
+		Thread.sleep(1000);
 		driver.findElement(By.xpath(DIMINUIR)).click();
+		Thread.sleep(1000);
 		driver.findElement(By.xpath(FINALIZAR)).click();
 		takeScreenShot("bebidas_e_rissole"); // os arquivos do print vão para a pasta "output
-		driver.findElement(By.xpath(FECHAR)).click();
 	}
 
 	public void concluirCompra() {
 		driver.switchTo().activeElement();
 	}
-
+	
+	/**
+	 * Verifica a mensagem de sucesso.
+	 * @return
+	 */
 	public String getMensagem() {
 		return driver.findElement(By.xpath(ALERTACOMPRA)).getText();
+	}
+	
+	/**
+	 * Fechar página.
+	 */
+	public void fecharPoupup() {
+		driver.findElement(By.xpath(FECHAR)).click();
 	}
 }

@@ -1,12 +1,14 @@
 package cenarios;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
+import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -14,8 +16,13 @@ import page.BebidasPage;
 
 public class Bebidas {
 
+	@Rule
+	public TestName testName = new TestName(); // Devolve o nome do meu @Teste
 	WebDriver driver;
 	BebidasPage bebidas;
+	public static final Logger logger = Logger.getLogger(Doces.class);
+	long inicioTeste;
+	long fimTeste;
 
 	/**
 	 * Este método visa confrigurar o drive. Esta classe será possível ser excutada
@@ -32,7 +39,6 @@ public class Bebidas {
 
 	public void setupChrome() {
 		driver = new ChromeDriver();
-		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 	}
 
@@ -54,8 +60,19 @@ public class Bebidas {
 		Assert.assertEquals("Pedido realizado com sucesso!", bebidas.getMensagem());
 	}
 
+	public void fecharPage() {
+		bebidas.fecharPoupup();
+	}
+
+	public Long calculaTempoExecucao(long inicio, long fim) {
+		return (fim - inicio) / 1000;
+	}
+
 	@After
 	public void fecharPagina() {
 		driver.quit();
+		fimTeste = System.currentTimeMillis();
+		logger.info("Teste: " + testName.getMethodName() + " Finalizado com Sucesso!");
+		logger.info("Tempo de execução: " + calculaTempoExecucao(inicioTeste, fimTeste) + " - segundos");
 	}
 }
